@@ -1,0 +1,64 @@
+create table customer_data as 
+select 
+c.customername,
+c.customerkey,
+c.gender,
+c.yearlyincome,
+g.city,
+g.englishcountryregionname as country,
+g.stateprovincename as state
+from customer c join geography g on c.geographykey = g.geographykey;
+
+
+CREATE TABLE product_data AS
+SELECT
+	p.productkey,
+    c.englishproductcategoryname AS category,
+    s.englishproductsubcategoryname AS sub_category,
+    p.englishproductname AS product_name
+FROM
+    product p
+JOIN
+    productsubcategory s
+    ON p.productsubcategorykey = s.productsubcategorykey
+JOIN
+    productcategory c
+    ON s.productcategorykey = c.productcategorykey;
+
+create table sales as 
+select 
+s.productkey,
+s.customerkey,
+s.orderdate,
+s.orderdatekey,
+s.shipdate,
+s.salesamount as sales
+from internetsales s where orderdate >= '2021-01-01';
+
+
+
+create table date_cleaned as
+select
+d.datekey,
+d.englishmonthname as month,
+d.englishdaynameofweek as day,
+d.fulldatealternatekey as date
+from date d where fulldatealternatekey>= '2021-01-01';
+
+
+
+
+select * from date_cleaned;
+select * from sales;
+
+select * from product_data ;
+select * from internetsales;
+
+select * from date;
+select * from customer_data;
+select * from customer;
+select * from geography;
+select * from product;
+select * from productsubcategory;
+
+
